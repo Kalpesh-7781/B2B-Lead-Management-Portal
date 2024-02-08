@@ -11,7 +11,7 @@ import com.model.User;
 public interface UserRepository extends JpaRepository<User,Long>
 {
 	public User findByEmployeeId(String employeeId);
-
-	//public void deleteByEmployeeId1(int employeeId);
+	
+	
 
 }

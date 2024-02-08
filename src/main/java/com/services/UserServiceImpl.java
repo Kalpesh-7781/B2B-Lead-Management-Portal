@@ -17,5 +17,16 @@ public class UserServiceImpl implements UserService {
     public User findByEmployeeId(String employeeId) {
         return userRepository.findByEmployeeId(employeeId);
     }
+
+	@Override
+	public void updatePassword(String employeeId,String password, String newPassword) {
+		User user = userRepository.findByEmployeeId(employeeId);
+        if (user != null) {
+            user.setPassword(newPassword);
+            userRepository.save(user);
+		
+	}
+
+	}
 } 
         

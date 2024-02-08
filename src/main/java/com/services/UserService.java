@@ -5,6 +5,10 @@ package com.services;
 import com.model.User;
 
 public interface UserService {
-	User findByEmployeeId(String employeeId);
+	public User findByEmployeeId(String employeeId);
+	
+	public void updatePassword(String employeeId,String password, String newPassword);
+
+
 
 }
