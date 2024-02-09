@@ -25,7 +25,12 @@ public class UserController {
 
     @PutMapping("/updatePassword")
     public String updatePassword(@RequestParam String employeeId,@RequestParam String password, @RequestParam String newPassword) {
-        userService.updatePassword(employeeId,password,newPassword);
-        return "Password updated successfully!";
+    	User user = userService.findByEmployeeId(employeeId);
+    	if (user != null && user.getPassword().equals(password)) {
+            userService.updatePassword(employeeId,password, newPassword);
+            return "Password updated successfully!";
+        } else {
+            return "Invalid employee ID or current password!";
+        }
     }
 }
