@@ -14,9 +14,18 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public User createUser(User u) {
-		// TODO Auto-generated method stub
 		return userRepository.save(u);
 	}
+
+	@Override
+	public void deleteUser(String employeeId) {
+		User user = userRepository.findByEmployeeId(employeeId);
+		if (user != null) {
+            userRepository.delete(user);
+        }
+	}
+	
+	
 	
 	
 	
