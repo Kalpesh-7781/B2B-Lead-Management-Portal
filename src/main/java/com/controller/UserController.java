@@ -1,9 +1,16 @@
 package com.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import com.model.Lead;
 import com.model.User;
+import com.services.LeadService;
 import com.services.UserService;
 
 @RestController
@@ -12,6 +19,9 @@ public class UserController {
     
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private LeadService leadService;
 
     @GetMapping("/login")
     public String login(@RequestBody User user) {
@@ -32,5 +42,10 @@ public class UserController {
         } else {
             return "Invalid employee ID or current password!";
         }
+    }
+    
+    @PostMapping("/leads")
+    public Lead createLead(@RequestBody Lead lead) {
+        return leadService.createLead(lead);
     }
 }
