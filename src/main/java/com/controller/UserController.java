@@ -1,6 +1,8 @@
 package com.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,24 +25,24 @@ public class UserController {
     @Autowired
     private LeadService leadService;
 
-    @GetMapping("/login")
-    public String login(@RequestBody User user) {
+    @GetMapping(value ="/login")
+    public ResponseEntity<?>login(@RequestBody User user) {
         User existingUser = userService.findByEmployeeId(user.getEmployeeId());
         if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
-            return "Login Successful!";
+        	return ResponseEntity.ok("Login Successful!");
         } else {
-            return "Invalid Credentials!";
+        	return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Credentials!");
         }
     }
 
     @PutMapping("/updatePassword")
-    public String updatePassword(@RequestParam String employeeId,@RequestParam String password, @RequestParam String newPassword) {
+    public ResponseEntity<?> updatePassword(@RequestParam String employeeId,@RequestParam String password, @RequestParam String newPassword) {
     	User user = userService.findByEmployeeId(employeeId);
     	if (user != null && user.getPassword().equals(password)) {
             userService.updatePassword(employeeId,password, newPassword);
-            return "Password updated successfully!";
+            return ResponseEntity.ok("Password updated successfully!");
         } else {
-            return "Invalid employee ID or current password!";
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid employee ID or current password!");
         }
     }
     
